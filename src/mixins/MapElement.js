@@ -13,7 +13,7 @@ export default {
 
 	created () {
 		const mapAncestor = this.$_findAncestor(
-			a => a.$options.name === 'GoogleMapsMap'
+			a => a.$options.name === 'GoogleMap'
 		)
 
 		if (!mapAncestor) {

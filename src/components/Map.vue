@@ -67,7 +67,7 @@ const redirectedEvents = [
 ]
 
 export default {
-	name: 'GoogleMapsMap',
+	name: 'GoogleMap',
 
 	mixins: [
 		Ready,
@@ -225,7 +225,6 @@ export default {
 .vue-google-map {
 	position: relative;
 }
-
 .vue-google-map .map-view {
 	left: 0;
 	right: 0;
@@ -233,7 +232,6 @@ export default {
 	bottom: 0;
 	position: absolute;
 }
-
 .vue-google-map .hidden-content {
 	display: none;
 }
