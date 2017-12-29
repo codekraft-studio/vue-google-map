@@ -10,17 +10,14 @@
     </md-app-toolbar>
 
     <md-app-drawer :md-active.sync="menuVisible" md-right>
+
       <md-toolbar class="md-transparent" md-elevation="0">
         Vue Google Map
       </md-toolbar>
 
       <md-list>
-        <md-list-item to="/">
-          <span class="md-list-item-text">Simple Map</span>
-        </md-list-item>
-
-        <md-list-item to="/info-windows">
-          <span class="md-list-item-text">Info Windows</span>
+        <md-list-item :to="route.path" v-for="route in routes" :key="route.name">
+          <span class="md-list-item-text" v-text="route.label"></span>
         </md-list-item>
       </md-list>
     </md-app-drawer>
@@ -36,8 +33,12 @@ export default {
   name: 'app',
   data () {
     return {
-      menuVisible: false
+      menuVisible: false,
+      routes: []
     }
+  },
+  created () {
+    this.routes = this.$router.options.routes
   }
 }
 </script>
