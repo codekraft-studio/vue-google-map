@@ -11,6 +11,7 @@ import Map from './components/Map.vue'
 import Marker from './components/Marker'
 
 import InfoWindow from './components/InfoWindow'
+import Autocomplete from './components/Autocomplete'
 
 export {
 	Circle,
@@ -26,6 +27,7 @@ function registerComponents (Vue, prefix) {
 	Vue.component(`${prefix}`, Map)
 	Vue.component(`${prefix}-marker`, Marker)
 	Vue.component(`${prefix}-info-window`, InfoWindow)
+	Vue.component(`${prefix}-autocomplete`, Autocomplete)
 }
 
 const plugin = {
