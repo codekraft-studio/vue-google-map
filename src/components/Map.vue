@@ -15,6 +15,14 @@ import Events from '../mixins/Events'
 import { autoCall } from '../utils/misc'
 import { redirectMethods } from '../utils/redirect-methods'
 
+const coordinatesRegex = new RegExp('[+-]?\\d+(\\.\\d+)?', 'g')
+
+// The default center is Rome the mother of all culture
+const defaultCenter = {
+  lat: 41.89193,
+  lng: 12.51133
+}
+
 const boundProps = [
 	{
 		name: 'center',
@@ -78,24 +86,27 @@ export default {
 	props: {
 		center: {
 			required: true,
-			type: Object,
+			type: [String, Object, Array]
 		},
 		heading: {
-			type: Number,
+			type: Number
 		},
 		mapTypeId: {
 			type: String,
+      required: false
 		},
 		options: {
 			type: Object,
-			default: () => ({}),
+			default: () => ({})
 		},
 		tilt: {
 			type: Number,
+      required: false
 		},
 		zoom: {
-			required: true,
+			required: false,
 			type: Number,
+      default: 10
 		},
 	},
 
@@ -105,9 +116,10 @@ export default {
 
 	googleMapsReady () {
 		const element = this.$refs.map
+    const center = this.parseCenter(this.center)
 
 		const options = {
-			center: this.center,
+			center: center,
 			heading: this.heading,
 			mapTypeId: this.mapTypeId,
 			tilt: this.tilt,
@@ -208,6 +220,44 @@ export default {
 				callback(null, data)
 			})
 		},
+
+    // Takes a value and tries to evaluate the center otherwise
+    // fails back to the default center that can be customized through settings
+    parseCenter (value) {
+      if (Array.isArray(value)) {
+        if (value.length < 2) {
+          console.warn('The center array is invalid', value, 'the component will fallback to default')
+          this.$emit('update:center', defaultCenter)
+          return defaultCenter
+        }
+
+        return {
+          lat: value[0],
+          lng: value[1]
+        }
+      }
+
+      if (typeof value === 'object') {
+        if (!value.hasOwnProperty('lat') || !value.hasOwnProperty('lng')) {
+          console.warn('The center object is invalid', value, 'the component will fallback to default')
+          this.$emit('update:center', defaultCenter)
+          return defaultCenter
+        }
+        return value
+      }
+
+      if (typeof value === 'string') {
+        const matches = this.center.match(coordinatesRegex)
+        if (!matches || matches.length < 2) {
+          console.warn('The center string is invalid', value, 'the component will fallback to default')
+          this.$emit('update:center', defaultCenter)
+          return defaultCenter
+        }
+      }
+
+      console.warn('Invalid center property', value, 'the component will fallback to default')
+      return defaultCenter;
+    },
   },
 
 	watch: {
