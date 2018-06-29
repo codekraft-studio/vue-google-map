@@ -2,7 +2,10 @@
   <md-app id="app" md-mode="fixed">
     <md-app-toolbar class="md-primary">
       <h3 class="md-title" style="flex: 1">
-        <img width="32" height="32" src="./assets/logo.png"> Vue Google Map
+        <span class="page-icon">
+          <img width="32" height="32" src="./assets/logo.png">
+        </span>
+        <span>Vue Google Map</span>
       </h3>
       <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
         <md-icon>menu</md-icon>
@@ -12,7 +15,10 @@
     <md-app-drawer :md-active.sync="menuVisible" md-right>
 
       <md-toolbar class="md-transparent" md-elevation="0">
-        Vue Google Map
+        <span class="page-icon">
+          <img width="42" height="42" src="./assets/logo.png">
+        </span>
+        <span class="md-headline">Vue Google Map</span>
       </md-toolbar>
 
       <md-list>
@@ -54,6 +60,10 @@ html, body, #app {
 
 .md-content {
   position: relative;
+}
+
+.page-icon {
+  margin-right: 10px;
 }
 
 .md-drawer {
