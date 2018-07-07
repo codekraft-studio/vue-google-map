@@ -1,5 +1,7 @@
-var path = require('path')
-var webpack = require('webpack')
+require('dotenv').config()
+
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   entry: './example/main.js',
@@ -79,7 +81,7 @@ if (process.env.NODE_ENV === 'production') {
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
       'process.env': {
-        GOOGLE_API_KEY: JSON.stringify(process.env.GOOGLE_API_KEY),
+        GOOGLE_APIKEY: JSON.stringify(process.env.GOOGLE_APIKEY),
       }
     })
   ])
