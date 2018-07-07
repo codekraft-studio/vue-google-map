@@ -4,13 +4,15 @@ import VueRouter from 'vue-router'
 import SimpleMap from './components/SimpleMap.vue'
 import InfoWindows from './components/InfoWindows.vue'
 import PlaceSearch from './components/PlaceSearch.vue'
+import UserPosition from './components/UserPosition.vue'
 
 const router = new VueRouter({
 	mode: 'hash',
 	routes: [
 		{ path: '/', name: 'simple', label: 'Simple', component: SimpleMap },
 		{ path: '/info-windows', name: 'info-windows', label: 'Info Windows', component: InfoWindows },
-		{ path: '/place-search', name: 'place-search', label: 'Place Search', component: PlaceSearch }
+		{ path: '/place-search', name: 'place-search', label: 'Place Search', component: PlaceSearch },
+		{ path: '/user-position', name: 'user-position', label: 'User Position', component: UserPosition },
 	],
 })
 

@@ -12,6 +12,7 @@ import Marker from './components/Marker'
 
 import InfoWindow from './components/InfoWindow'
 import Autocomplete from './components/Autocomplete'
+import UserPosition from './components/UserPosition'
 
 export {
 	Circle,
@@ -20,7 +21,8 @@ export {
 	Marker,
 	NearbyPlaces,
 	PlaceDetails,
-  InfoWindow
+	UserPosition,
+  InfoWindow,
 }
 
 function registerComponents (Vue, prefix) {
@@ -28,6 +30,7 @@ function registerComponents (Vue, prefix) {
 	Vue.component(`${prefix}-marker`, Marker)
 	Vue.component(`${prefix}-info-window`, InfoWindow)
 	Vue.component(`${prefix}-autocomplete`, Autocomplete)
+	Vue.component(`${prefix}-userposition`, UserPosition)
 }
 
 const plugin = {
