@@ -1,3 +1,4 @@
+import {shapeOptions} from '../common/props'
 import MapElement from '../mixins/MapElement'
 
 const boundProps = [
@@ -22,6 +23,18 @@ const redirectedEvents = [
 	'mousemove'
 ]
 
+const circleProps = {
+	...shapeOptions,
+	center: {
+		type: Object,
+		required: true,
+	},
+	radius: {
+		type: Number,
+		required: true,
+	}
+}
+
 export default {
 	name: 'GoogleMapCircle',
 
@@ -33,39 +46,7 @@ export default {
 		return {}
 	},
 
-	props: {
-		center: {
-			type: Object,
-			required: true,
-		},
-		clickable: {
-			type: Boolean,
-			default: true,
-		},
-		draggable: {
-			type: Boolean,
-			default: false,
-		},
-		editable: {
-			type: Boolean,
-			default: false,
-		},
-		options: {
-			type: Object,
-			default: () => ({}),
-		},
-		radius: {
-			type: Number,
-			required: true,
-		},
-		visible: {
-			default: true,
-		},
-		zIndex: {
-			type: Number,
-			default: 1
-		}
-	},
+	props: circleProps,
 
 	watch: {
 		clickable: 'updateOptions',
@@ -89,8 +70,6 @@ export default {
 		this.$_circle = new window.google.maps.Circle(options)
 		this.bindProps(this.$_circle, boundProps)
 		this.redirectEvents(this.$_circle, redirectedEvents)
-
-		console.log('created circle', this.$_circle)
   },
 
 	render () {

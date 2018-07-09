@@ -1,3 +1,4 @@
+import {shapeOptions} from '../common/props'
 import MapElement from '../mixins/MapElement'
 
 const boundProps = [
@@ -22,6 +23,15 @@ const redirectedEvents = [
 	'mousemove'
 ]
 
+const polygonProps = {
+	...shapeOptions,
+	paths: {
+		type: Array,
+		required: true,
+		default: () => []
+	},
+}
+
 export default {
 	name: 'GoogleMapPolygon',
 
@@ -29,55 +39,7 @@ export default {
     MapElement,
   ],
 
-	props: {
-		paths: {
-			type: Array,
-			required: true,
-			default: () => []
-		},
-
-		// Beheviour customization
-		clickable: {
-			type: Boolean,
-			default: true,
-		},
-		draggable: {
-			type: Boolean,
-			default: false,
-		},
-		editable: {
-			type: Boolean,
-			default: false,
-		},
-		geodesic: {
-			type: Boolean,
-			default: false
-		},
-		visible: {
-			type: Boolean,
-			default: true
-		},
-
-		// Style customization
-		zIndex: {
-			type: Number
-		},
-		fillColor: {
-			type: String
-		},
-		fillOpacity: {
-			type: Number
-		},
-		strokeColor: {
-			type: String
-		},
-		strokeWeight: {
-			type: Number
-		},
-		strokeOpacity: {
-			type: Number
-		},
-	},
+	props: polygonProps,
 
 	watch: {
 		paths: 'updatePaths',
