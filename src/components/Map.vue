@@ -56,6 +56,7 @@ const redirectedMethods = [
 	'panBy',
 	'panTo',
 	'panToBounds',
+	'setCenter',
 	'fitBounds',
 	'getBounds',
 ]
