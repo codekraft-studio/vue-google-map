@@ -15,13 +15,14 @@ import Autocomplete from './components/Autocomplete'
 import UserPosition from './components/UserPosition'
 import Polygon from './components/Polygon'
 import Polyline from './components/Polyline'
+import Circle from './components/Circle'
 import Rectangle from './components/Rectangle'
 
 export {
-	Circle,
 	Geocoder,
 	Map,
 	Marker,
+	Circle,
 	Rectangle,
 	Polyline,
 	NearbyPlaces,
@@ -34,6 +35,7 @@ export {
 function registerComponents (Vue, prefix) {
 	Vue.component(`${prefix}`, Map)
 	Vue.component(`${prefix}-marker`, Marker)
+	Vue.component(`${prefix}-circle`, Circle)
 	Vue.component(`${prefix}-info-window`, InfoWindow)
 	Vue.component(`${prefix}-autocomplete`, Autocomplete)
 	Vue.component(`${prefix}-userposition`, UserPosition)
