@@ -17,6 +17,7 @@
       :options="mapOptions">
 
       <google-map-userposition
+        @first-position="setCenter"
         :accuracy.sync="userPosition.accuracy"
         :position.sync="userPosition.coordinates"
       ></google-map-userposition>
@@ -33,7 +34,7 @@ export default {
     return {
       userPosition: {
         accuracy: 0,
-        coordinates: {}
+        coordinates: null
       },
       center: {
         lat: 41.89193,
@@ -43,7 +44,11 @@ export default {
       mapOptions: {}
     }
   },
-  methods: {}
+  methods: {
+    setCenter (position) {
+      this.$refs.Map.panTo(position)
+    }
+  }
 }
 </script>
 
