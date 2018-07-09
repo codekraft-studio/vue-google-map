@@ -62,7 +62,10 @@ export default {
   },
 
   watch: {
-    position(value) {
+    position(value, oldValue) {
+      if (!oldValue) {
+        this.$emit('first-position', value)
+      }
       this.currentPosition = value
     },
     accuracy(value) {
