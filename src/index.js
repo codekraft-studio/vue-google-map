@@ -14,6 +14,7 @@ import InfoWindow from './components/InfoWindow'
 import Autocomplete from './components/Autocomplete'
 import UserPosition from './components/UserPosition'
 import Polygon from './components/Polygon'
+import Polyline from './components/Polyline'
 import Rectangle from './components/Rectangle'
 
 export {
@@ -22,6 +23,7 @@ export {
 	Map,
 	Marker,
 	Rectangle,
+	Polyline,
 	NearbyPlaces,
 	PlaceDetails,
 	UserPosition,
@@ -36,6 +38,7 @@ function registerComponents (Vue, prefix) {
 	Vue.component(`${prefix}-autocomplete`, Autocomplete)
 	Vue.component(`${prefix}-userposition`, UserPosition)
 	Vue.component(`${prefix}-polygon`, Polygon)
+	Vue.component(`${prefix}-polyline`, Polyline)
 	Vue.component(`${prefix}-rectangle`, Rectangle)
 }
 
