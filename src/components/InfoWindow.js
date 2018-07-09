@@ -10,7 +10,7 @@ const redirectedEvents = [
 ]
 
 export default {
-	name: 'GoogleMapsInfoWindow',
+	name: 'GoogleMapInfoWindow',
 
 	mixins: [
 		MapElement,

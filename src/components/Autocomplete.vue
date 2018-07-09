@@ -43,7 +43,7 @@ const redirectedMethods = [
 ]
 
 export default {
-  name: 'GoogleMapsAutocomplete',
+  name: 'GoogleMapAutocomplete',
 
   props: {
     // types: {
