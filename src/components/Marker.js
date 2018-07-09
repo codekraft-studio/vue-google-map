@@ -72,6 +72,7 @@ export default {
 			type: String,
 		},
 		visible: {
+			type: Boolean,
 			default: true,
 		},
 		zIndex: {
