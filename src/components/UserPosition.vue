@@ -2,8 +2,16 @@
 <script>
 import Ready from '../mixins/Ready'
 import Marker from './Marker'
+import Circle from './Circle'
 
-let defaultPositionStyle
+const defaultPositionStyle = {
+  fillColor: '#4285F4',
+  fillOpacity: 1,
+  scale: 6,
+  strokeColor: 'white',
+  strokeWeight: 2,
+};
+
 const defaultAccuracyStyle = {
   strokeColor: '#4285F4',
   strokeOpacity: 0.25,
@@ -119,7 +127,6 @@ export default {
 			// Emit properties to parent
       this.$emit('update:position', this.currentPosition)
       this.$emit('update:accuracy', this.currentAccuracy)
-			console.log('updating accu', this.currentAccuracy)
     },
 
     onWatchError(e) {
@@ -130,7 +137,10 @@ export default {
   render(createElement) {
     const markers = []
 
-		if (this.googleMapsReady && this.currentPosition) {
+		if (this.googleMapsReady && this.currentPosition && (
+      this.minimumAccuracy === null ||
+			this.currentAccuracy <= this.minimumAccuracy
+    )) {
       markers.push(
         createElement(Marker, {
           props: {
@@ -142,21 +152,27 @@ export default {
           },
         })
       )
+
+      if (!this.hideAccuracy) {
+        markers.push(
+          createElement(Circle, {
+            props: {
+              clickable: false,
+              radius: this.currentAccuracy,
+              options: this.accuracyStyle || defaultAccuracyStyle,
+              center: this.currentPosition,
+              zIndex: 1,
+            }
+          })
+        )
+      }
     }
 
     return createElement('div', markers)
   },
 
   googleMapsReady () {
-    defaultPositionStyle = {
-      path: window.google.maps.SymbolPath.CIRCLE,
-      fillColor: '#4285F4',
-      fillOpacity: 1,
-      scale: 6,
-      strokeColor: 'white',
-      strokeWeight: 2,
-    }
-
+    defaultPositionStyle.path = window.google.maps.SymbolPath.CIRCLE
     if (!this.disableWatch) {
       this.startWatch()
     }
