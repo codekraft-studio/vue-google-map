@@ -75,43 +75,46 @@ const defaultStyle = {
   strokeWeight: 1,
 };
 
+const circles = [{
+  center: {
+    lat: 47.431546,
+    lng: 11.788804
+  },
+  radius: 100000,
+  draggable: true,
+  options: defaultStyle
+}, {
+  center: {
+    lat: 42.730972,
+    lng: 11.143818
+  },
+  radius: 50000,
+  draggable: true,
+  options: defaultStyle
+}];
+
+const lines = [{
+  path: [
+    {lat: 37.772, lng: -122.214},
+    {lat: 21.291, lng: -157.821},
+    {lat: -18.142, lng: 178.431},
+    {lat: -27.467, lng: 153.027}
+  ],
+  geodesic: true,
+  strokeColor: '#FF0000',
+  strokeOpacity: 1.0,
+  strokeWeight: 2
+}]
+
 export default {
   data () {
+    const mapOptions = this.$root.defaultMapOptions
     return {
-      center: {
-				lat: 41.89193,
-				lng: 12.51133
-			},
+      center: mapOptions.center,
+      mapOptions: mapOptions,
       editableShape: null,
-      circles: [{
-        center: {
-  				lat: 47.431546,
-  				lng: 11.788804
-  			},
-        radius: 100000,
-        draggable: true,
-        options: defaultStyle
-      }, {
-        center: {
-  				lat: 42.730972,
-  				lng: 11.143818
-  			},
-        radius: 50000,
-        draggable: true,
-        options: defaultStyle
-      }],
-      lines: [{
-        path: [
-          {lat: 37.772, lng: -122.214},
-          {lat: 21.291, lng: -157.821},
-          {lat: -18.142, lng: 178.431},
-          {lat: -27.467, lng: 153.027}
-        ],
-        geodesic: true,
-        strokeColor: '#FF0000',
-        strokeOpacity: 1.0,
-        strokeWeight: 2
-      }],
+      circles,
+      lines,
       rectangles: [{
         ...defaultStyle,
         bounds: {

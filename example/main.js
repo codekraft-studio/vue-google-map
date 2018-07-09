@@ -18,6 +18,18 @@ Vue.use(VueGoogleMap, {
 
 new Vue({
   el: '#app',
+  data () {
+    return {
+      defaultMapOptions: {
+        zoom: 8,
+        minZoom: 2,
+        center: {
+          lat: 41.89193,
+          lng: 12.51133
+        }
+      }
+    }
+  },
   router,
   render: h => h(App)
 })
