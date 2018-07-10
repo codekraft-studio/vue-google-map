@@ -28,7 +28,7 @@ export default {
     const mapOptions = this.$root.defaultMapOptions
     return {
       center: mapOptions.center,
-      mapOptions: mapOptions
+      mapOptions: mapOptions,
       infoWIndowContext: {},
       infoWindowsList: cities
     }
