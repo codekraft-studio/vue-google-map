@@ -137,10 +137,7 @@ export default {
   render(createElement) {
     const markers = []
 
-		if (this.googleMapsReady && this.currentPosition && (
-      this.minimumAccuracy === null ||
-			this.currentAccuracy <= this.minimumAccuracy
-    )) {
+		if (this.googleMapsReady && this.currentPosition) {
       markers.push(
         createElement(Marker, {
           props: {
@@ -153,13 +150,13 @@ export default {
         })
       )
 
-      if (!this.hideAccuracy) {
+      if (!this.minimumAccuracy || (this.currentAccuracy <= this.minimumAccuracy && !this.hideAccuracy)) {
         markers.push(
           createElement(Circle, {
             props: {
+              ...(this.accuracyStyle || defaultAccuracyStyle),
               clickable: false,
               radius: this.currentAccuracy,
-              options: this.accuracyStyle || defaultAccuracyStyle,
               center: this.currentPosition,
               zIndex: 1,
             }
