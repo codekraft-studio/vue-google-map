@@ -9,7 +9,7 @@ export function bindProp ({
 	identity,
 	applier,
 	retriever,
-	readOnly,
+	// readOnly,
 	event,
 	changeEvent,
 }) {
@@ -50,7 +50,14 @@ export function bindProp ({
 
 	vm.$watch(
 		() => watcher(vm[name]),
-		(value, oldValue) => applier(value, oldValue, setter)
+		(value, oldValue) => {
+      // Fix center property override when dragging the map
+      // resulting in map not following drag movements
+      if (!identity(value, setValue)) {
+				applier(value, oldValue, setter)
+			}
+			setValue = value
+    }
 	)
 
 	const listener = target.addListener(changeEvent, () => {
