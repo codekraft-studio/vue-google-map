@@ -136,6 +136,7 @@ export default {
 		this.$_streetViewService = new google.maps.StreetViewService()
 		this.$_directionsService = new google.maps.DirectionsService()
 		this.$_directionsRenderer = new google.maps.DirectionsRenderer()
+		this.$_geoCoder = new google.maps.Geocoder()
 
 		this.$_directionsRenderer.setMap(this.$_map)
 
