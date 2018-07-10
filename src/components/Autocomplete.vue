@@ -78,7 +78,6 @@ export default {
       names: redirectedMethods,
     }),
     onInputChange (event) {
-      console.log('event', event)
       this.$emit('update:model', event.target.value)
     }
   },
