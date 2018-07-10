@@ -21,11 +21,7 @@ module.exports = {
       },      {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options: {
-          loaders: {
-          }
-          // other vue-loader options go here
-        }
+        options: {}
       },
       {
         test: /\.js$/,
