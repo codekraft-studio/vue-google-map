@@ -64,8 +64,15 @@ html, body, #app {
   padding: 0;
 }
 
-.md-content {
+#app .md-content {
   position: relative;
+  padding: 0;
+}
+
+#app .md-content > div {
+  position: relative;
+  height: 100%;
+  width: 100%;
 }
 
 .page-icon {
