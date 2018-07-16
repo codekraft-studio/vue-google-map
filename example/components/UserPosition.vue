@@ -2,11 +2,11 @@
 
   <div class="simple-map">
 
-    <div class="position-details">
-      Map Center: {{ center }}
-      Map Zoom {{ zoom }}
-      Coordinates: {{ userPosition.coordinates }}
-      Accuracy: {{ userPosition.accuracy }}
+    <div class="position-details" v-if="userPosition.coordinates">
+      <div>Center: {{center.lat}} {{center.lng}}</div>
+      <div>Map Zoom {{ zoom }}</div>
+      <div>Your position: {{userPosition.coordinates.lat}} {{userPosition.coordinates.lng}}</div>
+      <div>Accuracy: {{ userPosition.accuracy }}</div>
     </div>
 
     <google-map
@@ -17,7 +17,6 @@
       :options="mapOptions">
 
       <google-map-userposition
-        @first-position="setCenter"
         :accuracy.sync="userPosition.accuracy"
         :position.sync="userPosition.coordinates"
       ></google-map-userposition>
@@ -44,11 +43,7 @@ export default {
       mapOptions: {}
     }
   },
-  methods: {
-    setCenter (position) {
-      this.$refs.Map.panTo(position)
-    }
-  }
+  methods: {}
 }
 </script>
 

@@ -1,5 +1,4 @@
-
-<script>
+import MapElement from '../mixins/MapElement'
 import Ready from '../mixins/Ready'
 import Marker from './Marker'
 import Circle from './Circle'
@@ -24,6 +23,7 @@ export default {
   name: 'GoogleMapUserPosition',
 
   mixins: [
+    MapElement,
     Ready,
   ],
 
@@ -42,6 +42,15 @@ export default {
     hideAccuracy: {
       type: Boolean,
       default: false,
+    },
+    centerMap: {
+      type: String,
+      default: 'once',
+      validator: (value) => [
+        'never',
+        'once',
+        'always'
+      ].includes(value)
     },
     minimumAccuracy: {
       default: 1000,
@@ -73,8 +82,14 @@ export default {
     position(value, oldValue) {
       if (!oldValue) {
         this.$emit('first-position', value)
+        if (this.centerMap === 'once') {
+          this.$_map.setCenter(value)
+        }
       }
       this.currentPosition = value
+      if (this.centerMap === 'always') {
+        this.$_map.setCenter(value)
+      }
     },
     accuracy(value) {
       this.currentAccuracy = value
@@ -179,4 +194,3 @@ export default {
     this.stopWatch()
   }
 }
-</script>
