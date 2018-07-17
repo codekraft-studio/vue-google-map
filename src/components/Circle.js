@@ -1,4 +1,5 @@
 import {shapeOptions} from '../common/props'
+import {redirectMethods} from '../utils/redirect-methods'
 import MapElement from '../mixins/MapElement'
 
 const boundProps = [
@@ -20,7 +21,16 @@ const redirectedEvents = [
 	'mousedown',
 	'mouseout',
 	'mouseover',
-	'mousemove'
+	'mousemove',
+  'radius_changed',
+  'center_changed'
+]
+
+const redirectedMethods = [
+	'getBounds',
+	'getCenter',
+	'getRadius',
+	'getVisible'
 ]
 
 const circleProps = {
@@ -57,6 +67,12 @@ export default {
 	},
 
 	methods: {
+    ...redirectMethods({
+			target () {
+				return this.$_circle
+			},
+			names: redirectedMethods,
+		}),
 		updateOptions (options) {
 			this.$_circle && this.$_circle.setOptions(options || this.$props)
 		},
