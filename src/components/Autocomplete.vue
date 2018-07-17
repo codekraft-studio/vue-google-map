@@ -16,7 +16,7 @@
     </div>
 
     <div class="pac-input-container">
-      <input id="pac-input" type="text" :value="model" @change="onInputChange" placeholder="Enter a location">
+      <input id="pac-input" type="text" :value="model" @input="onInputChange" placeholder="Enter a location">
     </div>
   </div>
 </template>
@@ -114,6 +114,7 @@ export default {
     this.$_autocomplete.addListener('place_changed', () => {
       let place = this.$_autocomplete.getPlace()
       this.$emit('place-changed', place)
+      this.$emit('update:model', place.formatted_address)
 
       if (this.$_map && this.updateMap) {
         if (place.geometry.viewport) {
