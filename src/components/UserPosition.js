@@ -79,17 +79,8 @@ export default {
   },
 
   watch: {
-    position(value, oldValue) {
-      if (!oldValue) {
-        this.$emit('first-position', value)
-        if (this.centerMap === 'once') {
-          this.$_map.setCenter(value)
-        }
-      }
+    position(value) {
       this.currentPosition = value
-      if (this.centerMap === 'always') {
-        this.$_map.setCenter(value)
-      }
     },
     accuracy(value) {
       this.currentAccuracy = value
@@ -121,7 +112,7 @@ export default {
         )
       } else {
         console.warn('GoogleMapsUserPosition: navigator.geolocation not supported')
-        this.$emit('error', new Error('unsupported'))
+        this.$emit('error', new Error('Geolocation is not supported'))
       }
     },
 
@@ -131,17 +122,32 @@ export default {
       }
     },
 
-    updatePosition(position) {
-      this.currentPosition = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
+    updatePosition(data) {
+      const {coords} = data
+      const position = {
+        lat: coords.latitude,
+        lng: coords.longitude,
       }
 
-			this.currentAccuracy = position.coords.accuracy
-
 			// Emit properties to parent
-      this.$emit('update:position', this.currentPosition)
-      this.$emit('update:accuracy', this.currentAccuracy)
+      this.$emit('update:position', position)
+      this.$emit('update:accuracy', coords.accuracy)
+
+      if (this.currentPosition === null) {
+        this.$emit('first-position', position)
+
+        if (this.centerMap === 'once') {
+          this.$_map.setCenter(position)
+        }
+      }
+
+      // Update local variables
+      this.currentPosition = position
+      this.currentAccuracy = coords.accuracy
+
+      if (this.centerMap === 'always') {
+        this.$_map.setCenter(position)
+      }
     },
 
     onWatchError(e) {
@@ -165,13 +171,13 @@ export default {
         })
       )
 
-      if (!this.minimumAccuracy || (this.currentAccuracy <= this.minimumAccuracy && !this.hideAccuracy)) {
+      if (!this.minimumAccuracy || (this.accuracy >= this.minimumAccuracy && !this.hideAccuracy)) {
         markers.push(
           createElement(Circle, {
             props: {
               ...(this.accuracyStyle || defaultAccuracyStyle),
               clickable: false,
-              radius: this.currentAccuracy,
+              radius: this.accuracy,
               center: this.currentPosition,
               zIndex: 1,
             }
