@@ -28,23 +28,28 @@ export const styleOptions = {
   },
   fillColor: {
     type: String,
-    required: false
+    required: false,
+    default: '#4285F4'
   },
   fillOpacity: {
     type: Number,
-    required: false
+    required: false,
+    default: 0.25
   },
   strokeColor: {
     type: String,
-    required: false
+    required: false,
+    default: '#4285F4'
   },
   strokeWeight: {
     type: Number,
-    required: false
+    required: false,
+    default: 1
   },
   strokeOpacity: {
     type: Number,
-    required: false
+    required: false,
+    strokeOpacity: 0.5
   },
 }
 
