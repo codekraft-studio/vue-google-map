@@ -12,8 +12,8 @@
 import Ready from '../mixins/Ready'
 import BoundProps from '../mixins/BoundProps'
 import Events from '../mixins/Events'
-import { autoCall } from '../utils/misc'
-import { redirectMethods } from '../utils/redirect-methods'
+import {autoCall} from '../utils/misc'
+import {redirectMethods} from '../utils/redirect-methods'
 
 const coordinatesRegex = new RegExp('[+-]?\\d+(\\.\\d+)?', 'g')
 

@@ -25,7 +25,7 @@
 import BoundProps from '../mixins/BoundProps'
 import Events from '../mixins/Events'
 import Ready from '../mixins/Ready'
-import FindAncestor from '../mixins/FindAncestor'
+import FindElement from '../mixins/FindElement'
 
 import {
   redirectMethods
@@ -60,7 +60,7 @@ export default {
   mixins: [
     BoundProps,
     Events,
-    FindAncestor,
+    FindElement,
     Ready,
   ],
 
