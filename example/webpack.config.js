@@ -4,16 +4,11 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: {
-    'build': './src/index.js',
-    'build.min': './src/index.js'
-  },
+  entry: path.resolve(__dirname, './main.js'),
   output: {
     path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
-    filename: '[name].js',
-    library: 'VueGoogleMap',
-    libraryTarget: 'umd'
+    publicPath: 'dist/',
+    filename: 'build.js'
   },
   module: {
     rules: [
@@ -48,11 +43,32 @@ module.exports = {
     },
     extensions: ['*', '.js', '.vue', '.json']
   },
-  devtool: '#source-map',
-  plugins: [
+  devServer: {
+    contentBase: __dirname,
+    historyApiFallback: true,
+    noInfo: true,
+    overlay: true
+  },
+  performance: {
+    hints: false
+  },
+  devtool: '#eval-source-map'
+}
+
+module.exports.plugins = (module.exports.plugins || []).concat([
+  new webpack.DefinePlugin({
+    'process.env': {
+      GOOGLE_APIKEY: JSON.stringify(process.env.GOOGLE_APIKEY),
+    }
+  })
+])
+
+if (process.env.NODE_ENV === 'production') {
+  module.exports.devtool = '#source-map'
+
+  // http://vue-loader.vuejs.org/en/workflow/production.html
+  module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.optimize.UglifyJsPlugin({
-      include: /\.min\.js$/,
-      minimize: true,
       sourceMap: true,
       compress: {
         warnings: false
@@ -61,5 +77,5 @@ module.exports = {
     new webpack.LoaderOptionsPlugin({
       minimize: true
     })
-  ]
+  ])
 }
