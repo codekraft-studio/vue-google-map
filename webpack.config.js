@@ -4,7 +4,6 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  target: 'web',
   entry: {
     'build': './src/index.js',
     'build.min': './src/index.js'
@@ -12,7 +11,9 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: '[name].js'
+    filename: '[name].js',
+    library: 'VueGoogleMap',
+    libraryTarget: 'umd'
   },
   module: {
     rules: [
