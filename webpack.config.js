@@ -4,11 +4,15 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: './example/main.js',
+  target: 'web',
+  entry: {
+    'build': './src/index.js',
+    'build.min': './src/index.js'
+  },
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'build.js'
+    filename: '[name].js'
   },
   module: {
     rules: [
@@ -43,27 +47,11 @@ module.exports = {
     },
     extensions: ['*', '.js', '.vue', '.json']
   },
-  devServer: {
-    historyApiFallback: true,
-    noInfo: true,
-    overlay: true
-  },
-  performance: {
-    hints: false
-  },
-  devtool: '#eval-source-map'
-}
-
-if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
-  // http://vue-loader.vuejs.org/en/workflow/production.html
-  module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
-    }),
+  devtool: '#source-map',
+  plugins: [
     new webpack.optimize.UglifyJsPlugin({
+      include: /\.min\.js$/,
+      minimize: true,
       sourceMap: true,
       compress: {
         warnings: false
@@ -72,14 +60,5 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.LoaderOptionsPlugin({
       minimize: true
     })
-  ])
-} else {
-  module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        GOOGLE_APIKEY: JSON.stringify(process.env.GOOGLE_APIKEY),
-      }
-    })
-  ])
-
+  ]
 }
