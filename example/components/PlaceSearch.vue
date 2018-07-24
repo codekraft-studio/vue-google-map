@@ -8,7 +8,6 @@
       id="map"
       ref="Map"
       :center.sync="center"
-      :zoom.sync="zoom"
       :options="mapOptions"
       @idle="onIdle">
 
@@ -26,14 +25,10 @@
 import cities from '../assets/cities.json'
 export default {
   data () {
+    const mapOptions = this.$root.defaultMapOptions
     return {
-      center: {
-				lat: 48.853,
-				lng: 2.298,
-			},
-			zoom: 8,
-      mapOptions: {},
-      mapBounds: {}
+      center: mapOptions.center,
+      mapOptions: mapOptions
     }
   },
   methods: {

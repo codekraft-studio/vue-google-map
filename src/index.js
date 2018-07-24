@@ -12,22 +12,37 @@ import Marker from './components/Marker'
 
 import InfoWindow from './components/InfoWindow'
 import Autocomplete from './components/Autocomplete'
+import PlaceDetails from './components/PlaceDetails'
+import UserPosition from './components/UserPosition'
+import Polygon from './components/Polygon'
+import Polyline from './components/Polyline'
+import Circle from './components/Circle'
+import Rectangle from './components/Rectangle'
 
 export {
-	Circle,
-	Geocoder,
 	Map,
 	Marker,
-	NearbyPlaces,
-	PlaceDetails,
-  InfoWindow
+	Circle,
+	Rectangle,
+	Polyline,
+	UserPosition,
+  PlaceDetails,
+  Autocomplete,
+  InfoWindow,
+	Polygon
 }
 
 function registerComponents (Vue, prefix) {
 	Vue.component(`${prefix}`, Map)
 	Vue.component(`${prefix}-marker`, Marker)
-	Vue.component(`${prefix}-info-window`, InfoWindow)
+	Vue.component(`${prefix}-circle`, Circle)
+	Vue.component(`${prefix}-infowindow`, InfoWindow)
 	Vue.component(`${prefix}-autocomplete`, Autocomplete)
+	Vue.component(`${prefix}-placedetails`, PlaceDetails)
+	Vue.component(`${prefix}-userposition`, UserPosition)
+	Vue.component(`${prefix}-polygon`, Polygon)
+	Vue.component(`${prefix}-polyline`, Polyline)
+	Vue.component(`${prefix}-rectangle`, Rectangle)
 }
 
 const plugin = {

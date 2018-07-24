@@ -1,13 +1,13 @@
 import BoundProps from './BoundProps'
 import Events from './Events'
 import Ready from './Ready'
-import FindAncestor from './FindAncestor'
+import FindElement from './FindElement'
 
 export default {
 	mixins: [
 		BoundProps,
 		Events,
-		FindAncestor,
+		FindElement,
 		Ready,
 	],
 

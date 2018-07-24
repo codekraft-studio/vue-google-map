@@ -12,8 +12,8 @@
 import Ready from '../mixins/Ready'
 import BoundProps from '../mixins/BoundProps'
 import Events from '../mixins/Events'
-import { autoCall } from '../utils/misc'
-import { redirectMethods } from '../utils/redirect-methods'
+import {autoCall} from '../utils/misc'
+import {redirectMethods} from '../utils/redirect-methods'
 
 const coordinatesRegex = new RegExp('[+-]?\\d+(\\.\\d+)?', 'g')
 
@@ -56,6 +56,7 @@ const redirectedMethods = [
 	'panBy',
 	'panTo',
 	'panToBounds',
+	'setCenter',
 	'fitBounds',
 	'getBounds',
 ]
@@ -107,7 +108,7 @@ export default {
 			required: false,
 			type: Number,
       default: 10
-		},
+		}
 	},
 
 	beforeCreate () {
@@ -135,6 +136,7 @@ export default {
 		this.$_streetViewService = new google.maps.StreetViewService()
 		this.$_directionsService = new google.maps.DirectionsService()
 		this.$_directionsRenderer = new google.maps.DirectionsRenderer()
+		this.$_geoCoder = new google.maps.Geocoder()
 
 		this.$_directionsRenderer.setMap(this.$_map)
 
@@ -271,18 +273,20 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
-.vue-google-map {
-	position: relative;
-}
-.vue-google-map .map-view {
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	position: absolute;
-}
-.vue-google-map .hidden-content {
-	display: none;
-}
+<style lang="css">
+  .vue-google-map {
+  	position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .vue-google-map .map-view {
+  	height: 100%;
+  	width: 100%;
+  	position: relative;
+  }
+
+  .vue-google-map .hidden-content {
+  	display: none;
+  }
 </style>

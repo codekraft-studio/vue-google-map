@@ -22,7 +22,7 @@
       </md-toolbar>
 
       <md-list>
-        <md-list-item :to="route.path" v-for="route in routes" :key="route.name">
+        <md-list-item @click="goTo(route.name)" v-for="route in routes" :key="route.name">
           <span class="md-list-item-text" v-text="route.label"></span>
         </md-list-item>
       </md-list>
@@ -43,6 +43,12 @@ export default {
       routes: []
     }
   },
+  methods: {
+    goTo (name) {
+      this.$router.push({name})
+      this.menuVisible = false
+    }
+  },
   created () {
     this.routes = this.$router.options.routes
   }
@@ -58,8 +64,15 @@ html, body, #app {
   padding: 0;
 }
 
-.md-content {
+#app .md-content {
   position: relative;
+  padding: 0;
+}
+
+#app .md-content > div {
+  position: relative;
+  height: 100%;
+  width: 100%;
 }
 
 .page-icon {
@@ -68,18 +81,6 @@ html, body, #app {
 
 .md-drawer {
   background-color: white;
-}
-
-#map {
-  width: 100%;
-  min-height: 800px;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
 }
 
 .infowindow .infowindow-header {

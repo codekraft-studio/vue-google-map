@@ -30,7 +30,7 @@ const redirectedEvents = [
 ]
 
 export default {
-	name: 'GoogleMapsMarker',
+	name: 'GoogleMapMarker',
 
 	mixins: [
 		MapElement,
@@ -72,6 +72,7 @@ export default {
 			type: String,
 		},
 		visible: {
+			type: Boolean,
 			default: true,
 		},
 		zIndex: {

@@ -1,25 +1,26 @@
 export default {
-	beforeCreate () {
-		this.$_googleListeners = []
-	},
+  beforeCreate() {
+    this.$_googleListeners = []
+  },
 
-	beforeDestroy () {
-		for (const listener of this.$_googleListeners) {
-			listener.remove()
-		}
-	},
+  beforeDestroy() {
+    for (const listener of this.$_googleListeners) {
+      listener.remove()
+    }
+  },
 
-	methods: {
-		listen (target, event, handler) {
-			this.$_googleListeners.push(target.addListener(event, handler))
-		},
+  methods: {
+    listen(target, event, handler) {
+      this.$_googleListeners.push(target.addListener(event, handler))
+    },
 
-		redirectEvents (target, events) {
-			for (const e of events) {
-				this.listen(target, e, (...args) => {
-					this.$emit(e, ...args)
-				})
-			}
-		},
-	},
+    redirectEvents(target, events) {
+      for (const e of events) {
+        const normalized = e.replace(/([a-z])([A-Z])/g, '$1-$2').replace(/\s+/g, '-').toLowerCase()
+        this.listen(target, e, (...args) => {
+          this.$emit(normalized, ...args)
+        })
+      }
+    }
+  }
 }

@@ -6,7 +6,6 @@
       id="map"
       ref="Map"
       :center.sync="center"
-      :zoom.sync="zoom"
       :options="mapOptions">
 
       <google-map-info-window v-for="infowindow in infoWindowsList" :position="infowindow.position" :options="{
@@ -26,13 +25,10 @@
 import cities from '../assets/cities.json'
 export default {
   data () {
+    const mapOptions = this.$root.defaultMapOptions
     return {
-      center: {
-				lat: 48.853,
-				lng: 2.298,
-			},
-			zoom: 5,
-      mapOptions: {},
+      center: mapOptions.center,
+      mapOptions: mapOptions,
       infoWIndowContext: {},
       infoWindowsList: cities
     }
