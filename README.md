@@ -32,15 +32,15 @@ This module tries to map GoogleMap with Vue components as much as possible so an
 
 ## Components
 
-Here a list of the available components that you can use with this plugin, click on them to discover more about the usage and see examples.
+Here a list of the available components that you can use with this plugin, click on them to discover more about the usage and see examples. If you are interested to see a __real life use__ checkout the [example](example) folder which contains the source code of the [website]().
 
-* [Marker](#Marker)
-* [AutoComplete](#AutoComplete)
-* [PlaceDetails](#PlaceDetails)
-* [Circle](#Circle)
-* [Rectangle](#Rectangle)
-* [Polygon](#Polygon)
-* [Polyline](#Polyline)
+* [Marker](#marker)
+* [AutoComplete](#autocomplete)
+* [PlaceDetails](#placedetails)
+* [Circle](#circle)
+* [Rectangle](#rectangle)
+* [Polygon](#polygon)
+* [Polyline](#polyline)
 
 
 #### Marker
