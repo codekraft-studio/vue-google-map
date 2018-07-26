@@ -1,22 +1,24 @@
 <template lang="html">
   <div class="pac-card">
     <div class="pac-controls-container" v-if="controls">
-      <div class="pac-control">
-        <input type="checkbox" value="establishment" v-model="_types">
-        <label for="changetype-establishment">Establishments</label>
-        <input type="checkbox" value="address" v-model="_types">
-        <label for="changetype-address">Addresses</label>
-        <input type="checkbox" value="geocode" v-model="_types">
-        <label for="changetype-geocode">Geocodes</label>
-      </div>
-      <div class="pac-control">
-        <input type="checkbox">
-        <label for="use-strict-bounds">Strict Bounds</label>
-      </div>
+      <slot name="controls" :types="_types">
+        <div class="pac-control">
+          <input type="checkbox" value="establishment" v-model="_types">
+          <label for="changetype-establishment">Establishments</label>
+          <input type="checkbox" value="address" v-model="_types">
+          <label for="changetype-address">Addresses</label>
+          <input type="checkbox" value="geocode" v-model="_types">
+          <label for="changetype-geocode">Geocodes</label>
+        </div>
+        <div class="pac-control">
+          <input type="checkbox">
+          <label for="use-strict-bounds">Strict Bounds</label>
+        </div>
+      </slot>
     </div>
 
     <div class="pac-input-container">
-      <input id="pac-input" type="text" :value="model" @input="onInputChange" placeholder="Enter a location">
+      <input id="pac-input" type="text" :value="model" @input="onInputChange" :placeholder="placeholder">
     </div>
   </div>
 </template>
@@ -43,6 +45,10 @@ export default {
 
   props: {
     model: String,
+    placeholder: {
+      type: String,
+      default: 'Search on map'
+    },
     types: {
       type: Array,
       default: () => ([])
@@ -152,12 +158,12 @@ export default {
     display: inline-block;
     padding: 5px 11px;
   }
+
   .pac-input-container {
     padding: 5px 11px;
   }
 
   .pac-input-container input {
-    min-width: 300px;
     width: 100%;
     padding: 4px;
     margin: 0;
