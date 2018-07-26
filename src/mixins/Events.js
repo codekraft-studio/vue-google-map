@@ -16,7 +16,7 @@ export default {
 
     redirectEvents(target, events) {
       for (const e of events) {
-        const normalized = e.replace(/([a-z])([A-Z])/g, '$1-$2').replace(/\s+/g, '-').toLowerCase()
+        const normalized = e.replace(/([a-z])([A-Z])/g, '$1-$2').replace(/[\s_]+/g, '-').toLowerCase()
         this.listen(target, e, (...args) => {
           this.$emit(normalized, ...args)
         })
