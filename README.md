@@ -93,17 +93,40 @@ npm install
 yarn install
 ```
 
-Create a `.env` file containing the __GOOGLE_APIKEY__ variable with your API key:
+Create a `.env` file containing the __VUE_APP_GOOGLE_APIKEY__ variable with your valid API key:
 
-```
-GOOGLE_APIKEY=my-apy-key
+```env
+VUE_APP_GOOGLE_APIKEY=my-apy-key
 ```
 
-Once is all ready you can start the development server by typing:
-
+## Project setup
 ```
-npm run dev
-yarn run dev
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Run your unit tests
+```
+npm run test:unit
+```
+
+### Run your end-to-end tests
+```
+npm run test:e2e
 ```
 
 ---

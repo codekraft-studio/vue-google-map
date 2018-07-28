@@ -1,17 +1,17 @@
 module.exports = {
-  parser: 'babel-eslint',
-  parserOptions: {
-    sourceType: 'module',
-    ecmaVersion: 2017
-  },
+  root: true,
   env: {
-    browser: true,
-    node: true,
-    es6: true
+    node: true
   },
-  extends: 'eslint:recommended',
+  'extends': [
+    'plugin:vue/essential',
+    '@vue/standard'
+  ],
   rules: {
-    "no-console": 1,
-    "no-unused-vars": 1
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+  },
+  parserOptions: {
+    parser: 'babel-eslint'
   }
 }

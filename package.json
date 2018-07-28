@@ -1,38 +1,49 @@
 {
   "name": "vue-google-map",
-  "description": "A VueJs Google Map components set.",
+  "description": "A set of Google Map components for VueJs.",
   "version": "0.1.0",
-  "main": "dist/build.js",
-  "unpkg": "dist/build.min.js",
-  "author": "codekraft-studio <info@codekraft.it>",
-  "license": "MIT",
+  "private": false,
+  "main": "./dist/vue-google-map.umd.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot --config example/webpack.config.js",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "build-demo": "cross-env NODE_ENV=production webpack --progress --hide-modules --config example/webpack.config.js"
+    "serve": "vue-cli-service serve --open",
+    "build": "vue-cli-service build --target lib --dest dist ./lib/index.js",
+    "build-demo": "vue-cli-service build --dest demo",
+    "publish-demo": "git subtree push --prefix demo origin gh-pages",
+    "lint": "vue-cli-service lint ./lib",
+    "test:unit": "vue-cli-service test:unit",
+    "test:e2e": "vue-cli-service test:e2e"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ],
   "dependencies": {
-    "vue": "^2.4.4"
+    "vue": "^2.5.16"
   },
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.2.5",
-    "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-stage-3": "^6.24.1",
-    "cross-env": "^5.0.5",
-    "css-loader": "^1.0.0",
-    "dotenv": "^6.0.0",
-    "eslint": "^5.1.0",
-    "file-loader": "^1.1.4",
-    "vue-loader": "^13.0.5",
-    "vue-template-compiler": "^2.4.4",
-    "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.9.1"
+    "@vue/cli-plugin-babel": "^3.0.0-rc.8",
+    "@vue/cli-plugin-e2e-cypress": "^3.0.0-rc.8",
+    "@vue/cli-plugin-eslint": "^3.0.0-rc.8",
+    "@vue/cli-plugin-unit-jest": "^3.0.0-rc.8",
+    "@vue/cli-service": "^3.0.0-rc.8",
+    "@vue/eslint-config-standard": "^3.0.0-rc.8",
+    "@vue/test-utils": "^1.0.0-beta.20",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "^23.0.1",
+    "lint-staged": "^7.2.0",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.0.1",
+    "vue-material": "1.0.0-beta-7",
+    "vue-template-compiler": "^2.5.16",
+    "vue-router": "^3.0.1"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "vue-cli-service lint",
+      "git add"
+    ],
+    "*.vue": [
+      "vue-cli-service lint",
+      "git add"
+    ]
   }
 }
