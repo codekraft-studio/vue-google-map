@@ -42,6 +42,9 @@ export default {
 		show (val) {
 			val ? this.$_infoWindow.open(this.$_map) : this.$_infoWindow.close()
 		},
+    position (val) {
+      this.$_infoWindow.setPosition(val)
+    },
 		options: {
 			handler (val) {
 				this.$_infoWindow.setOptions(val)
@@ -64,11 +67,15 @@ export default {
 
 	googleMapsReady () {
 		const options = this.$props
-		options.map = this.$_map
 		options.content = options.content || this.$el.innerHTML
 
-    console.log('Vue Google Map => InfoWindow: Opening infowindow with options:', options)
+    // If show is true set the map before initialization
+    // so it will open the infowindow automatically
+    if (this.show) {
+      options.map = this.$_map
+    }
 
+    // Create infowindow element
 		this.$_infoWindow = new window.google.maps.InfoWindow(options)
 
 		// Sync parent show property
@@ -81,7 +88,7 @@ export default {
 	},
 
 	mounted () {
-		this.observer = new MutationObserver((mutations) => {
+		this.observer = new MutationObserver(() => {
 			this.content = this.$el.innerHTML
 			this.$_infoWindow.setContent(this.content)
 		})
@@ -98,5 +105,5 @@ export default {
 		if (this.$_infoWindow) {
 			this.$_infoWindow.setMap(null)
 		}
-	},
+	}
 }
