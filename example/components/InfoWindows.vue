@@ -7,14 +7,16 @@
       ref="Map"
       :center.sync="center"
       :options="mapOptions">
+      <google-map-marker
+        v-for="infowindow in infoWindowsList"
+        :position="infowindow.position"
+        @click="toggleInfoWindow(infowindow)"
+      ></google-map-marker>
 
-      <google-map-info-window v-for="infowindow in infoWindowsList" :position="infowindow.position" :options="{
-        maxWidth: 300
-      }">
-        <h4>{{infowindow.title}}</h4>
-        <p>{{infowindow.description}}</p>
-      </google-map-info-window>
-
+      <google-map-infowindow :position="infoWIndowContext.position" :show.sync="showInfo" :options="{maxWidth: 300}">
+        <h4>{{infoWIndowContext.title}}</h4>
+        <p>{{infoWIndowContext.description}}</p>
+      </google-map-infowindow>
     </google-map>
 
   </div>
@@ -27,13 +29,27 @@ export default {
   data () {
     const mapOptions = this.$root.defaultMapOptions
     return {
-      center: mapOptions.center,
+      showInfo: false,
+      center: {
+        lat: 44.2899,
+        lng: 11.8774
+      },
       mapOptions: mapOptions,
-      infoWIndowContext: {},
+      infoWIndowContext: {
+        position: {
+          lat: 44.2899,
+          lng: 11.8774
+        }
+      },
       infoWindowsList: cities
     }
   },
-  methods: {}
+  methods: {
+    toggleInfoWindow (context) {
+      this.infoWIndowContext = context
+      this.showInfo = true
+    }
+  }
 }
 </script>
 

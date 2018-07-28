@@ -22,7 +22,7 @@ new Vue({
     return {
       defaultMapOptions: {
         zoom: 8,
-        minZoom: 2,
+        minZoom: 3,
         center: {
           lat: 41.89193,
           lng: 12.51133
