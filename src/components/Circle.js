@@ -42,7 +42,11 @@ const circleProps = {
 	radius: {
 		type: Number,
 		required: true,
-	}
+	},
+  fitBounds: {
+    type: [Boolean, String],
+    default: false
+  }
 }
 
 export default {
@@ -86,6 +90,11 @@ export default {
 		this.$_circle = new window.google.maps.Circle(options)
 		this.bindProps(this.$_circle, boundProps)
 		this.redirectEvents(this.$_circle, redirectedEvents)
+
+    // Automatically fit bounds when created
+    if (this.fitBounds) {
+      this.$_map.fitBounds(this.$_circle.getBounds())
+    }
   },
 
 	render () {
