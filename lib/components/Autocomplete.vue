@@ -18,7 +18,9 @@
     </div>
 
     <div class="pac-input-container">
+      <slot name="before-input"></slot>
       <input id="pac-input" type="text" :value="model" @input="onInputChange" :placeholder="placeholder">
+      <slot name="after-input"></slot>
     </div>
   </div>
 </template>
@@ -161,6 +163,7 @@ export default {
 
   .pac-input-container {
     padding: 5px 11px;
+    display: flex;
   }
 
   .pac-input-container input {
