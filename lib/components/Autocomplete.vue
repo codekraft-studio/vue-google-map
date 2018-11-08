@@ -145,11 +145,10 @@ export default {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     background-color: #fff;
     font-family: Roboto;
-    z-index: 10000;
+    z-index: 1;
     position: absolute;
     right: 40px;
     margin-right: 10px;
-    z-index: 10000;
     position: absolute;
     right: 40px;
     top: 10px;
