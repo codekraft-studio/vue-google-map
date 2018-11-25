@@ -1,8 +1,7 @@
 {
-  "name": "vue-google-map",
+  "name": "@codekraft-studio/vue-google-map",
   "description": "A set of Google Map components for VueJs.",
   "version": "0.1.0",
-  "private": false,
   "main": "./dist/vue-google-map.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve --open",
@@ -45,5 +44,8 @@
       "vue-cli-service lint",
       "git add"
     ]
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
