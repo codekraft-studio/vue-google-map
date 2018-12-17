@@ -1,9 +1,9 @@
 <template>
   <div class="vue-google-map">
     <div ref="map" class="map-view"></div>
-      <div class="hidden-content">
-        <slot></slot>
-      </div>
+    <div class="hidden-content">
+      <slot></slot>
+    </div>
     <slot name="visible"></slot>
   </div>
 </template>
@@ -275,7 +275,7 @@ export default {
 
 <style lang="css">
   .vue-google-map {
-  position: relative;
+    position: relative;
     width: 100%;
     height: 100%;
   }
@@ -287,6 +287,6 @@ export default {
   }
 
   .vue-google-map .hidden-content {
-  display: none;
+    display: none;
   }
 </style>
