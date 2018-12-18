@@ -1,6 +1,8 @@
 module.exports = {
-  baseUrl: '',
+  baseUrl: process.env.NODE_ENV === 'production'
+    ? '/vue-google-map/'
+    : '/',
   css: {
-    extract: false
+    extract: process.env.EXTRACT_CSS === 'true'
   }
 }

@@ -1,13 +1,13 @@
 {
   "name": "@codekraft-studio/vue-google-map",
-  "description": "A set of Google Map components for VueJs.",
+  "description": "A set of Google Map components for VueJs",
   "version": "0.1.1",
-  "main": "./dist/vue-google-map.umd.js",
+  "main": "./dist/VueGoogleMap.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve --open",
-    "build": "vue-cli-service build --target lib --dest dist ./lib/index.js",
-    "build-demo": "vue-cli-service build --dest demo",
-    "publish-demo": "git subtree push --prefix demo origin gh-pages",
+    "build": "vue-cli-service build --target lib --name VueGoogleMap ./lib/index.js",
+    "build:demo": "vue-cli-service build --mode demo --dest demo",
+    "publish:demo": "git subtree push --prefix demo origin gh-pages",
     "lint": "vue-cli-service lint ./lib",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e"
