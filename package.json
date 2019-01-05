@@ -1,7 +1,7 @@
 {
   "name": "@codekraft-studio/vue-google-map",
   "description": "A set of Google Map components for VueJs",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "./dist/VueGoogleMap.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve --open",
