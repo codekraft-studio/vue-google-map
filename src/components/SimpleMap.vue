@@ -2,11 +2,7 @@
 
   <div class="simple-map">
 
-    <google-map
-      id="map"
-      ref="Map"
-      :center.sync="center"
-      :options="mapOptions">
+    <google-map id="map" ref="Map">
 
       <google-map-marker
         v-for="(marker, index) in markersList"

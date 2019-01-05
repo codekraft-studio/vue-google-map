@@ -24,7 +24,7 @@
       :zoom="5">
 
       <google-map-circle
-        :key="index"
+        :key="'circle-'+index"
         v-for="(circle, index) in circles"
         :radius="circle.radius"
         :center="circle.center"
@@ -32,7 +32,7 @@
       ></google-map-circle>
 
       <google-map-rectangle
-        :key="index"
+        :key="'rectangle-'+index"
         v-for="(rectangle, index) in rectangles"
         :bounds="rectangle.bounds"
         :fill-color="rectangle.fillColor"
@@ -43,7 +43,7 @@
       ></google-map-rectangle>
 
       <google-map-polyline
-        :key="index"
+        :key="'polyline-'+index"
         v-for="(line, index) in lines"
         :path="line.path"
         :geodesic="line.geodesic"
@@ -54,7 +54,7 @@
 
       <google-map-polygon
         :id="key"
-        :key="key"
+        :key="'polygon-'+key"
         v-for="(shape, key) in shapes"
         :draggable="shape.draggable"
         :clickable="shape.clickable"

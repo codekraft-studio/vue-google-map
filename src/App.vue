@@ -13,7 +13,6 @@
     </md-app-toolbar>
 
     <md-app-drawer :md-active.sync="menuVisible" md-right>
-
       <md-toolbar class="md-transparent" md-elevation="0">
         <span class="page-icon">
           <img width="42" height="42" src="./assets/logo.png">
@@ -56,45 +55,44 @@ export default {
 </script>
 
 <style>
+  html, body, #app {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
 
-html, body, #app {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
+  #app .md-content {
+    position: relative;
+    padding: 0;
+  }
 
-#app .md-content {
-  position: relative;
-  padding: 0;
-}
+  #app .md-content > div {
+    position: relative;
+    height: 100%;
+    width: 100%;
+  }
 
-#app .md-content > div {
-  position: relative;
-  height: 100%;
-  width: 100%;
-}
+  .page-icon {
+    margin-right: 10px;
+  }
 
-.page-icon {
-  margin-right: 10px;
-}
+  .md-drawer {
+    background-color: white;
+  }
 
-.md-drawer {
-  background-color: white;
-}
+  .infowindow .infowindow-header {
+    background-color: #333;
+    color: white;
+    padding: 15px;
+  }
 
-.infowindow .infowindow-header {
-  background-color: #333;
-  color: white;
-  padding: 15px;
-}
+  .infowindow .infowindow-footer {
+    background-color: #eee;
+    padding: 10px;
+  }
 
-.infowindow .infowindow-footer {
-  background-color: #eee;
-  padding: 10px;
-}
-
-a {
-  color: #42b983;
-}
+  a {
+    color: #42b983;
+  }
 </style>
