@@ -2,9 +2,9 @@
 
 > Google Map components and integration for VueJs
 
-[![Dependency Status][daviddm-image]][daviddm-url]
+[![NPM version][npm-image]][npm-url] [![Dependency Status][daviddm-image]][daviddm-url]
 
-This package is under development, until the first release comes out use it in production at your risk, also the documentation is not complete, so if is missing something open a request or look at the [source code](https://github.com/codekraft-studio/vue-google-map).
+This package is under active development, the documentation is not complete yet, so if is missing something open a request or look at the [source code](https://github.com/codekraft-studio/vue-google-map).
 
 ## Installation
 
@@ -99,41 +99,13 @@ Create a `.env` file containing the __VUE_APP_GOOGLE_APIKEY__ variable with your
 VUE_APP_GOOGLE_APIKEY=my-apy-key
 ```
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Run your end-to-end tests
-```
-npm run test:e2e
-```
-
 ---
 
 ## License
 
-This package is under the MIT license.
+This package is under the [MIT License](LICENSE).
 
+[npm-image]: https://badge.fury.io/js/%40codekraft-studio%2Fvue-google-map.svg
+[npm-url]: https://npmjs.org/package/@codekraft-studio/vue-google-map
 [daviddm-image]: https://david-dm.org/codekraft-studio/vue-google-map.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/codekraft-studio/vue-google-map
