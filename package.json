@@ -2,7 +2,21 @@
   "name": "@codekraft-studio/vue-google-map",
   "description": "A set of Google Map components for VueJs",
   "version": "0.1.2",
+  "license": "MIT",
   "main": "./dist/VueGoogleMap.umd.js",
+  "homepage": "https://github.com/codekraft-studio/vue-google-map",
+  "author": {
+    "name": "codekraft-studio",
+    "email": "info@codekraft.it",
+    "url": "https://github.com/codekraft-studio"
+  },
+  "keywords": [
+    "vue",
+    "vue-plugin",
+    "vue-components",
+    "googlemap",
+    "google-map"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build --target lib --name VueGoogleMap ./lib/index.js",
@@ -13,7 +27,7 @@
     "test:e2e": "vue-cli-service test:e2e"
   },
   "dependencies": {
-    "vue": "^2.5.16"
+    "vue": "^2.5"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-rc.8",
