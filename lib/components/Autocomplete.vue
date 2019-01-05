@@ -30,10 +30,7 @@ import BoundProps from '../mixins/BoundProps'
 import Events from '../mixins/Events'
 import Ready from '../mixins/Ready'
 import FindElement from '../mixins/FindElement'
-
-import {
-  redirectMethods
-} from '../utils/redirect-methods'
+import { redirectMethods } from '../utils/redirect-methods'
 
 const redirectedMethods = [
   'getBounds',
@@ -44,6 +41,13 @@ const redirectedMethods = [
 
 export default {
   name: 'GoogleMapAutocomplete',
+
+  mixins: [
+    BoundProps,
+    Events,
+    FindElement,
+    Ready
+  ],
 
   props: {
     model: String,
@@ -64,13 +68,6 @@ export default {
       default: true
     }
   },
-
-  mixins: [
-    BoundProps,
-    Events,
-    FindElement,
-    Ready
-  ],
 
   data () {
     return {

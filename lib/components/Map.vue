@@ -12,24 +12,18 @@
 import Ready from '../mixins/Ready'
 import BoundProps from '../mixins/BoundProps'
 import Events from '../mixins/Events'
-import {autoCall} from '../utils/misc'
+import {autoCall, assignDefined} from '../utils/misc'
 import {redirectMethods} from '../utils/redirect-methods'
-
-const coordinatesRegex = new RegExp('[+-]?\\d+(\\.\\d+)?', 'g')
-
-// The default center is Rome the mother of all culture
-const defaultCenter = {
-  lat: 41.89193,
-  lng: 12.51133
-}
 
 const boundProps = [
   {
     name: 'center',
-    watcher: value => ({
-      lat: autoCall(value.lat),
-      lng: autoCall(value.lng)
-    }),
+    watcher: value => {
+      return value && {
+        lat: autoCall(value.lat),
+        lng: autoCall(value.lng)
+      }
+    },
     identity: (a, b) => {
       if (a && b) {
         if (typeof a.equals !== 'function') {
@@ -86,8 +80,8 @@ export default {
 
   props: {
     center: {
-      required: true,
-      type: [String, Object, Array]
+      type: [String, Object, Array],
+      required: false
     },
     heading: {
       type: Number
@@ -105,9 +99,8 @@ export default {
       required: false
     },
     zoom: {
-      required: false,
       type: Number,
-      default: 10
+      required: false
     }
   },
 
@@ -117,41 +110,35 @@ export default {
 
   googleMapsReady () {
     const element = this.$refs.map
-    const center = this.parseCenter(this.center)
 
-    const options = {
-      center: center,
-      heading: this.heading,
-      mapTypeId: this.mapTypeId,
-      tilt: this.tilt,
-      zoom: this.zoom,
-      ...this.options
-    }
+    // Fallback to global options when props are not defined
+    const {options, ...propOpts} = this.$props
+    const mapOptions = assignDefined(this.$googleMap, options, propOpts)
 
-    this.$_map = new window.google.maps.Map(element, options)
-
+    // Create the map
+    this.$_map = new window.google.maps.Map(element, mapOptions)
     this.bindProps(this.$_map, boundProps)
+    this.redirectEvents(this.$_map, redirectedEvents)
+    this.lastCenter = this.$_map.getCenter()
 
+    // Init map renderers
     this.$_streetView = this.$_map.getStreetView()
     this.$_streetViewService = new window.google.maps.StreetViewService()
     this.$_directionsService = new window.google.maps.DirectionsService()
-    this.$_directionsRenderer = new window.google.maps.DirectionsRenderer()
-    this.$_geoCoder = new window.google.maps.Geocoder()
+    this.$_directionsRenderer = new window.google.maps.DirectionsRenderer({
+      map: this.$_map
+    })
 
-    this.$_directionsRenderer.setMap(this.$_map)
-
+    // Update component bounds property
     this.listen(this.$_map, 'bounds_changed', () => {
       this.$emit('update:bounds', this.$_map.getBounds())
     })
 
+    // Update last center
     this.listen(this.$_map, 'idle', () => {
       this.$emit('idle', this)
       this.lastCenter = this.$_map.getCenter()
     })
-
-    this.lastCenter = this.$_map.getCenter()
-
-    this.redirectEvents(this.$_map, redirectedEvents)
 
     // Code that awaits `$_getMap()`
     this.$_mapPromises.forEach(resolve => resolve(this.$_map))
@@ -167,16 +154,8 @@ export default {
 
     resize (preserveCenter = true) {
       if (this.$_map) {
-        // let center
-        // preserveCenter && (center = this.$_map.getCenter())
         window.google.maps.event.trigger(this.$_map, 'resize')
         preserveCenter && this.$_map.setCenter(this.lastCenter)
-      }
-    },
-
-    visibilityChanged (isVisible) {
-      if (isVisible) {
-        this.$nextTick(this.resize)
       }
     },
 
@@ -194,13 +173,18 @@ export default {
     // Route; An object with the route request properties
     // @see: https://developers.google.com/maps/documentation/javascript/3.exp/reference#DirectionsRequest
     getDirections (route, callback) {
-      this.$_directionsService.route(route, (result, status) => {
-        if (status !== 'OK') {
-          callback(status)
-          return
-        }
-        this.$_directionsRenderer.setDirections(result)
-        callback(null, result)
+      callback = callback || function () {}
+      return new Promise((resolve, reject) => {
+        this.$_directionsService.route(route, (result, status) => {
+          if (status !== 'OK') {
+            callback(status)
+            reject(status)
+            return
+          }
+          this.$_directionsRenderer.setDirections(result)
+          callback(null, result)
+          resolve(result)
+        })
       })
     },
 
@@ -210,55 +194,22 @@ export default {
     //  @see: https://developers.google.com/maps/documentation/javascript/3.exp/reference#StreetViewLocationRequest
     // Callback: The callback to run when the streetview service has done
     setStreetView (position, options, callback) {
-      this.$_streetViewService.getPanorama({
-        location: position
-      }, (data, status) => {
-        if (status !== 'OK') {
-          callback(status)
-          return
-        }
-        this.$_streetView.setPano(data.location.pano)
-        this.$_streetView.setVisible(true)
-        callback(null, data)
+      callback = callback || function () {}
+      return new Promise((resolve, reject) => {
+        this.$_streetViewService.getPanorama({
+          location: position
+        }, (data, status) => {
+          if (status !== 'OK') {
+            callback(status)
+            reject(status)
+            return
+          }
+          this.$_streetView.setPano(data.location.pano)
+          this.$_streetView.setVisible(true)
+          callback(null, data)
+          resolve(data)
+        })
       })
-    },
-
-    // Takes a value and tries to evaluate the center otherwise
-    // fails back to the default center that can be customized through settings
-    parseCenter (value) {
-      if (Array.isArray(value)) {
-        if (value.length < 2) {
-          console.warn('The center array is invalid', value, 'the component will fallback to default')
-          this.$emit('update:center', defaultCenter)
-          return defaultCenter
-        }
-
-        return {
-          lat: value[0],
-          lng: value[1]
-        }
-      }
-
-      if (typeof value === 'object') {
-        if (!value.hasOwnProperty('lat') || !value.hasOwnProperty('lng')) {
-          console.warn('The center object is invalid', value, 'the component will fallback to default')
-          this.$emit('update:center', defaultCenter)
-          return defaultCenter
-        }
-        return value
-      }
-
-      if (typeof value === 'string') {
-        const matches = this.center.match(coordinatesRegex)
-        if (!matches || matches.length < 2) {
-          console.warn('The center string is invalid', value, 'the component will fallback to default')
-          this.$emit('update:center', defaultCenter)
-          return defaultCenter
-        }
-      }
-
-      console.warn('Invalid center property', value, 'the component will fallback to default')
-      return defaultCenter
     }
   },
 
