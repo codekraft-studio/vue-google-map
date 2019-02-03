@@ -23,10 +23,7 @@ import cities from '../assets/cities.json'
 
 export default {
   data () {
-    const mapOptions = this.$root.defaultMapOptions
     return {
-      center: mapOptions.center,
-      mapOptions: mapOptions,
       infoWIndowContext: {},
       markersList: cities
     }

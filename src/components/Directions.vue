@@ -2,11 +2,7 @@
 
   <div class="simple-map">
 
-    <google-map
-      id="map"
-      ref="Map"
-      :center.sync="center"
-      :options="mapOptions">
+    <google-map id="map" ref="Map">
 
       <google-map-directions
         v-for="(direction, index) in directionsList"
@@ -15,6 +11,7 @@
         :destination="direction.destination"
         :travel-mode="direction.travelMode"
         @directions-changed="onDirectionsChange"
+        preserve-viewport
       />
 
     </google-map>
@@ -59,10 +56,7 @@ import directions from '../assets/directions.json'
 
 export default {
   data () {
-    const mapOptions = this.$root.defaultMapOptions
     return {
-      center: mapOptions.center,
-      mapOptions: mapOptions,
       directionsList: directions,
       travelModes: [
         'BICYCLING',

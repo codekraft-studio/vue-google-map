@@ -3,18 +3,11 @@
   <div class="simple-map">
 
     <div class="position-details" v-if="userPosition.coordinates">
-      <div>Center: {{center.lat}} {{center.lng}}</div>
-      <div>Map Zoom {{ zoom }}</div>
       <div>Your position: {{userPosition.coordinates.lat}} {{userPosition.coordinates.lng}}</div>
       <div>Accuracy: {{ userPosition.accuracy }}</div>
     </div>
 
-    <google-map
-      id="map"
-      ref="Map"
-      :center.sync="center"
-      :zoom.sync="zoom"
-      :options="mapOptions">
+    <google-map id="map" ref="Map">
 
       <google-map-userposition
         :accuracy.sync="userPosition.accuracy"
@@ -34,13 +27,7 @@ export default {
       userPosition: {
         accuracy: 0,
         coordinates: null
-      },
-      center: {
-        lat: 41.89193,
-        lng: 12.51133
-      },
-      zoom: 8,
-      mapOptions: {}
+      }
     }
   },
   methods: {}

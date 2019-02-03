@@ -2,11 +2,7 @@
 
   <div class="info-windows">
 
-    <google-map
-      id="map"
-      ref="Map"
-      :center.sync="center"
-      :options="mapOptions">
+    <google-map id="map" ref="Map">
       <google-map-marker
         :key="index"
         v-for="(infowindow, index) in infoWindowsList"
@@ -28,14 +24,8 @@
 import cities from '../assets/cities.json'
 export default {
   data () {
-    const mapOptions = this.$root.defaultMapOptions
     return {
       showInfo: false,
-      center: {
-        lat: 44.2899,
-        lng: 11.8774
-      },
-      mapOptions: mapOptions,
       infoWIndowContext: {
         position: {
           lat: 44.2899,
@@ -53,6 +43,3 @@ export default {
   }
 }
 </script>
-
-<style lang="css">
-</style>

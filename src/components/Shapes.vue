@@ -16,12 +16,7 @@
       <md-switch v-model="editableShape.draggable">Draggable</md-switch>
     </div>
 
-    <google-map
-      id="map"
-      ref="Map"
-      @click="editableShape = null"
-      :center.sync="center"
-      :zoom="5">
+    <google-map id="map" ref="Map" @click="editableShape = null">
 
       <google-map-circle
         :key="'circle-'+index"
@@ -113,10 +108,7 @@ const lines = [{
 
 export default {
   data () {
-    const mapOptions = this.$root.defaultMapOptions
     return {
-      center: mapOptions.center,
-      mapOptions: mapOptions,
       editableShape: null,
       circles,
       lines,

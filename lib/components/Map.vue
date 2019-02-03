@@ -12,8 +12,8 @@
 import Ready from '../mixins/Ready'
 import BoundProps from '../mixins/BoundProps'
 import Events from '../mixins/Events'
-import {autoCall, assignDefined} from '../utils/misc'
-import {redirectMethods} from '../utils/redirect-methods'
+import { autoCall, assignDefined } from '../utils/misc'
+import { redirectMethods } from '../utils/redirect-methods'
 
 const boundProps = [
   {
@@ -112,7 +112,7 @@ export default {
     const element = this.$refs.map
 
     // Fallback to global options when props are not defined
-    const {options, ...propOpts} = this.$props
+    const { options, ...propOpts } = this.$props
     const mapOptions = assignDefined(this.$googleMap, options, propOpts)
 
     // Create the map
