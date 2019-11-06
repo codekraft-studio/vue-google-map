@@ -21,7 +21,7 @@
     "google-map"
   ],
   "scripts": {
-    "serve": "vue-cli-service serve --open",
+    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name VueGoogleMap ./lib/index.js",
     "build:demo": "vue-cli-service build --mode demo --dest demo",
     "publish:demo": "git subtree push --prefix demo origin gh-pages",
@@ -45,7 +45,6 @@
     "lint-staged": "^8.1.3",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.0.1",
-    "terser": "3.14.1",
     "vue-material": "1.0.0-beta-7",
     "vue-router": "^3.0.2",
     "vue-template-compiler": "^2.5.22"
