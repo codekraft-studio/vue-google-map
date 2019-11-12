@@ -19,10 +19,12 @@ const boundProps = [
   {
     name: 'center',
     watcher: value => {
-      return value && {
-        lat: autoCall(value.lat),
-        lng: autoCall(value.lng)
-      }
+      return (
+        value && {
+          lat: autoCall(value.lat),
+          lng: autoCall(value.lng)
+        }
+      )
     },
     identity: (a, b) => {
       if (a && b) {
@@ -35,7 +37,7 @@ const boundProps = [
         return a.equals(b)
       }
     },
-    retriever: (value) => ({
+    retriever: value => ({
       lat: value.lat(),
       lng: value.lng()
     })
@@ -69,14 +71,19 @@ const redirectedEvents = [
   'tilesloaded'
 ]
 
+// @see: https://developers.google.com/maps/documentation/javascript/reference/map#MapOptions
+export const defaultOptions = {
+  zoom: 5,
+  center: {
+    lat: 41.89193,
+    lng: 12.51133
+  }
+}
+
 export default {
   name: 'GoogleMap',
 
-  mixins: [
-    Ready,
-    BoundProps,
-    Events
-  ],
+  mixins: [Ready, BoundProps, Events],
 
   props: {
     center: {
@@ -113,7 +120,7 @@ export default {
 
     // Fallback to global options when props are not defined
     const { options, ...propOpts } = this.$props
-    const mapOptions = assignDefined(this.$googleMap, options, propOpts)
+    const mapOptions = assignDefined({}, this.$googleMap.defaultOptions.Map, options, propOpts)
 
     // Create the map
     this.$_map = new window.google.maps.Map(element, mapOptions)
@@ -196,19 +203,22 @@ export default {
     setStreetView (position, options, callback) {
       callback = callback || function () {}
       return new Promise((resolve, reject) => {
-        this.$_streetViewService.getPanorama({
-          location: position
-        }, (data, status) => {
-          if (status !== 'OK') {
-            callback(status)
-            reject(status)
-            return
+        this.$_streetViewService.getPanorama(
+          {
+            location: position
+          },
+          (data, status) => {
+            if (status !== 'OK') {
+              callback(status)
+              reject(status)
+              return
+            }
+            this.$_streetView.setPano(data.location.pano)
+            this.$_streetView.setVisible(true)
+            callback(null, data)
+            resolve(data)
           }
-          this.$_streetView.setPano(data.location.pano)
-          this.$_streetView.setVisible(true)
-          callback(null, data)
-          resolve(data)
-        })
+        )
       })
     }
   },
@@ -225,19 +235,19 @@ export default {
 </script>
 
 <style lang="css">
-  .vue-google-map {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
+.vue-google-map {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
 
-  .vue-google-map .map-view {
-    height: 100%;
-    width: 100%;
-    position: relative;
-  }
+.vue-google-map .map-view {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
 
-  .vue-google-map .hidden-content {
-    display: none;
-  }
+.vue-google-map .hidden-content {
+  display: none;
+}
 </style>
