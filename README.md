@@ -4,13 +4,14 @@
 
 [![NPM version][npm-image]][npm-url] [![Dependency Status][daviddm-image]][daviddm-url]
 
-This package is under active development, the documentation is not complete yet, so if is missing something open a request or look at the [source code](https://github.com/codekraft-studio/vue-google-map).
+#### Important disclaimer!
+
+This package is under active development, I personally use it in various projects that are already in production but this doesn't mean it hasn't bug or it won't change the API structure in the future. Also the documentation is not complete yet, so if is missing something open a request or look at the [source code](https://github.com/codekraft-studio/vue-google-map).
 
 ## Installation
 
 ```
 npm i @codekraft-studio/vue-google-map
-yarn add @codekraft-studio/vue-google-map
 ```
 
 ## Usage
@@ -21,27 +22,38 @@ Before starting you need a Google API key from the [developer console](http://co
 import VueGoogleMap from '@codekraft-studio/vue-google-map'
 
 Vue.use(VueGoogleMap, {
+
+  // register globally all plugin provided components
+  installComponents: true,
+  
+  // loading options for google map script
   load: {
+    sync: false,
     apiKey: 'your-api-key',
-    libraries: ['...']
-  }
+    libraries: ['...'],
+    // other options
+  },
+
+  // called when the google map client is loaded
+  onReady: () => { }
+  
 })
 ```
+
+For all the specific script loading options checkout Google Developers [website](https://developers.google.com/maps/documentation/javascript/tutorial#Loading_the_Maps_API).
 
 This module tries to map GoogleMap with Vue components as much as possible so any of the options available on the original GoogleMap class will be available as component props and all the events emitted will be mapped to component events.
 
 ## Components
 
-Here a list of the available components that you can use with this plugin, click on them to discover more about the usage and see examples. If you are interested to see a __real life use__ checkout the [example](example) folder which contains the source code of the [website]().
+Here a list of the available components that you can use with this plugin, click on them to discover more about the usage and see examples..
 
 * [Marker](#marker)
 * [AutoComplete](#autocomplete)
-* [PlaceDetails](#placedetails)
 * [Circle](#circle)
 * [Rectangle](#rectangle)
 * [Polygon](#polygon)
 * [Polyline](#polyline)
-
 
 #### Marker
 
@@ -86,24 +98,34 @@ The AutoComplete component does not require to be inside a `<google-map>` compon
 
 ## Development
 
-If you want to contribute in the development clone or fork the repository, than install all the dependencies:
+If you want to contribute in the development clone or fork the repository, than install all the dependencies.
 
 ```
 npm install
-yarn install
 ```
 
-Create a `.env` file containing the __VUE_APP_GOOGLE_APIKEY__ variable with your valid API key:
+Create a `.env` file containing a key called __VUE_APP_GOOGLE_APIKEY__ with as value a valid API key obtained from Google Developers website.
 
 ```env
 VUE_APP_GOOGLE_APIKEY=my-apy-key
 ```
 
+Finally start the project in development mode with the command `npm run dev` it will start the demo project where are the features are showcased and live tested.
+
+## Contributing
+
+1.  Create an issue and describe your idea
+2.  Fork the project (<https://github.com/codekraft-studio/generator-wordpress-plugin/fork>)
+3.  Create your feature branch (`git checkout -b my-new-feature`)
+4.  Commit your changes (`git commit -am 'Add some feature'`)
+5.  Publish the branch (`git push origin my-new-feature`)
+6.  Create a new Pull Request
+
 ---
 
 ## License
 
-This package is under the [MIT License](LICENSE).
+This package is released under [MIT License](./LICENSE).
 
 [npm-image]: https://badge.fury.io/js/%40codekraft-studio%2Fvue-google-map.svg
 [npm-url]: https://npmjs.org/package/@codekraft-studio/vue-google-map
