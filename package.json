@@ -1,6 +1,6 @@
 {
   "name": "@codekraft-studio/vue-google-map",
-  "version": "0.1.5",
+  "version": "0.1.6-rc.0",
   "description": "A set of Google Map components for VueJs",
   "author": {
     "name": "codekraft-studio",
