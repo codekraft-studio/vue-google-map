@@ -12,16 +12,22 @@ Vue.config.productionTip = false
 Vue.use(VueMaterial)
 Vue.use(VueGoogleMap, {
   load: {
+    immediate: true,
+    sync: false,
     apiKey: process.env.VUE_APP_GOOGLE_APIKEY,
     libraries: [
       'places',
       'visualization'
     ]
+  },
+  onReady(maps, plugin) {
+    console.log('Google Map client:', maps)
+    console.log('Vue Google Map plugin object:', plugin)
   }
 })
 
 new Vue({
-  data () {
+  data() {
     return {
       defaultMapOptions: {
         zoom: 8,
